@@ -47,6 +47,7 @@ endif
 LIBXDP_SOURCES := $(wildcard $(LIBXDP_DIR)/*.[ch] $(LIBXDP_DIR)/*.in)
 
 CFLAGS += -I$(HEADER_DIR)
+BPF_CFLAGS += -I$(HEADER_DIR)
 
 BPF_HEADERS := $(wildcard $(HEADER_DIR)/bpf/*.h) $(wildcard $(HEADER_DIR)/xdp/*.h)
 

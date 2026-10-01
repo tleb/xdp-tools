@@ -43,7 +43,10 @@ endif
 DEFINES += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
 
 CFLAGS += -std=gnu11 -Wextra -Werror $(DEFINES) $(ARCH_INCLUDES)
-BPF_CFLAGS += $(DEFINES) $(filter -ffile-prefix-map=%,$(CFLAGS)) $(filter -I%,$(CFLAGS)) $(ARCH_INCLUDES)
+BPF_CFLAGS += $(DEFINES) $(filter -ffile-prefix-map=%,$(CFLAGS)) \
+	-nostdlibinc \
+	$(subst -I,-isystem ,$(filter-out -I$(HEADER_DIR) -I$(LIB_DIR)/util,$(filter -I%,$(CFLAGS)))) \
+	$(ARCH_INCLUDES)
 
 CONFIGMK := $(LIB_DIR)/../config.mk
 LIBMK := Makefile $(CONFIGMK) $(LIB_DIR)/defines.mk $(LIB_DIR)/common.mk $(LIB_DIR)/../version.mk
